@@ -6,6 +6,10 @@ import Foundation
     import UIKit
 #endif
 
+/*
+ 9/2/16 Note: Added delta guards so minimal offsets will not affect color integrity delta adjustments I've set these arbitrarily to 0.001 for additive deltas, 0.000001 for multiplicative deltas). Thanks Curt Rothert for the tip. See also: https://developer.apple.com/videos/play/wwdc2016/712/
+ */
+
 extension Color {
     /// The degree to which a color is non-monochromatic
     public var colorfulness: CGFloat {
@@ -31,36 +35,42 @@ extension Color {
     
     /// Returns color with additive hue adjustment
     public func adjustingHue(by delta: CGFloat) -> Color {
+        guard abs(delta) > 0.001 else { return self }
         let value = min(1.0, max(0.0, hue + delta))
         return Color(hue: value, saturation: saturation, brightness: brightness, alpha: alphaComponent)
     }
     
     /// Returns color with additive saturation adjustment
     public func adjustingSaturation(by delta: CGFloat) -> Color {
+        guard abs(delta) > 0.001 else { return self }
         let value = min(1.0, max(0.0, saturation + delta))
         return Color(hue: hue, saturation: value, brightness: brightness, alpha: alphaComponent)
     }
     
     /// Returns color with additive brightness adjustment
     public func adjustingBrightness(by delta: CGFloat) -> Color {
+        guard abs(delta) > 0.001 else { return self }
         let value = min(1.0, max(0.0, brightness + delta))
         return Color(hue: hue, saturation: saturation, brightness: value, alpha: alphaComponent)
     }
     
     /// Returns color with multiplicative hue adjustment
     public func scalingHue(by delta: CGFloat) -> Color {
+        guard abs(delta - 1.0) > 0.00001 else { return self }
         let value = min(1.0, max(0.0, hue * delta))
         return Color(hue: value, saturation: saturation, brightness: brightness, alpha: alphaComponent)
     }
     
     /// Returns color with multiplicative saturation adjustment
     public func scalingSaturation(by delta: CGFloat) -> Color {
+        guard abs(delta - 1.0) > 0.00001 else { return self }
         let value = min(1.0, max(0.0, saturation * delta))
         return Color(hue: hue, saturation: value, brightness: brightness, alpha: alphaComponent)
     }
     
     /// Returns color with multiplicative brightness adjustment
     public func scalingBrightness(by delta: CGFloat) -> Color {
+        guard abs(delta - 1.0) > 0.00001 else { return self }
         let value = min(1.0, max(0.0, brightness * delta))
         return Color(hue: hue, saturation: saturation, brightness: value, alpha: alphaComponent)
     }
