@@ -1,9 +1,3 @@
-#if os(OSX)
-    import Cocoa
-#else
-    import UIKit
-#endif
-
 /// Mens colors provide a restricted set of name categories
 /// Magenta and Cyan are renamed to more common names
 /// and a secondary color walk fills in other colors

@@ -1,10 +1,8 @@
-import Foundation
-
-#if os(OSX)
-    import Cocoa
-#else
-    import UIKit
-#endif
+/*
+ 
+ NOTE: This file has not yet been audited and updated.
+ 
+ */
 
 // ---------------------------------------------------
 //  Distance
