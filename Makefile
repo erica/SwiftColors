@@ -8,7 +8,7 @@ all:
 
 setup:
 	git init ; git add . ; git commit -m "Commit"
-	git tag -a 1.0.0 -m "Version 1.0.0" 
+	git tag -a 1.0.1 -m "Version 1.0.1" 
 	git remote add origin https://github.com/erica/SwiftString.git
 	git push -u origin master
 	git push --tags
